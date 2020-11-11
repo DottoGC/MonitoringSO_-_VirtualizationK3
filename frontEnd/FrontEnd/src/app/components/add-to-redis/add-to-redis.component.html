@@ -1,0 +1,35 @@
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="col-md-4 mx-auto">
+    <div class="card">
+        <div class="cardh-header">
+            <h3>Datos codvid</h3>
+        </div>
+        <div class="card-body">
+            <form action="/addToRedis" method="POST">
+                <div class="form-group">
+                    <input type="text" name="Nombre" class="form-control" placeholder="Nombre" autofocus [(ngModel)]="nombre">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="Departamento" class="form-control" placeholder="Departamento" [(ngModel)]="departamento">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="Edad" class="form-control" placeholder="Edad" [(ngModel)]="edad">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="Forma_contagio" class="form-control" placeholder="Forma de contagio" [(ngModel)]="forma_contagio">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="Estado" class="form-control" placeholder="Estado" [(ngModel)]="estado">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" (click)="Insertar()">guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
