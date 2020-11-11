@@ -2,28 +2,25 @@ const dataCtrl={};
 const data= require('../models/CoronaDatos');
 const redis = require('redis');
 //ceate redis client
-let client =redis.createClient(6379,'35.193.215.215');
+let client =redis.createClient(6379,'34.121.30.18');
 //let client =redis.createClient();
 client.on('connect', function(){
     console.log('Conectado a Redis');
 });
 
 dataCtrl.getData = async (req,res) => {
-    
-    res.setHeader('Access-Control-Allow-Origin', 'http://frontend-srv:4200');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-    res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-    //*/
     const datos = await data.find();
+    console.log(datos);
     let datosFormR = client.hgetall('datosCovid',(err,obj)=>{
+        console.log(datosFormR);
+        console.log(obj);
         if(!obj){
-            //console.log('error no existe informacion');
-            res.json({obj, datos});
+            console.log('error no existe informacion');
+            res.json({datafromredis:obj, data:datos});
         }else{
             const datosFormRedis = obj;
             //console.log(datosFormRedis);
-            res.json({datosFormRedis, datos});
+            res.json({datafromredis:datosFormRedis, data:datos});
         }
     });
 }
@@ -33,6 +30,11 @@ dataCtrl.getDataDep = async (req,res) => {
     const datosgraph = await data.aggregate([{$group: {_id:"$Departamento",contador: {$sum:1}}},{$sort:{contador:-1}}]);
     res.json({datos,datosgraph});
 }
+
+dataCtrl.getSaluso = async (req,res) => {
+    res.json({obj:"hola desde servidor"});
+}
+
 dataCtrl.getDataEdades = async (req,res) => {
     let datosFormR = client.mget(['0-30','31-40','41-50','51-60','61-70','71-80','mayores_a_80'],(err,obj)=>{
         if(!obj){
@@ -77,6 +79,7 @@ dataCtrl.insertarCaso = async(req, res)=>{
     }else{
         const newDato = new data({Nombre,Departamento,Edad,Forma_contagio,Estado});
         await newDato.save();
+        console.log(newDato);
         await client.hmset('datosCovid',[
             'Nombre', Nombre,
             'Departamento', Departamento,

@@ -20,17 +20,22 @@ export class HomeComponent implements OnInit {
     Edad:0,
     Forma_contagio:'',
     Estado:''
-
   };
   ngOnInit(): void {
+    this.servio.getPrueba().subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.error(err)
+    );
   }
 
   getData(){
     this.servio.getSaludo().subscribe(
       res => {
         //this.saludo=res.saludo;
-        this.datosmongo=res['datos'];
-        this.daotredis=res['datosFormRedis'];
+        this.datosmongo=res['data'];
+        this.daotredis=res['datafromredis'];
         console.log(this.datosmongo);
         console.log(this.daotredis);
         console.log(res);
