@@ -8,7 +8,7 @@ const {moongose} = require ('./dbmongo');
 app.set('port', process.env.PORT || 3000);
 //midelwares
 
-app.use(cors({origin: 'http://localhost:4200'}));
+app.use(cors({origin: 'http://frontend-srv:4200'}));
 /*/app.use(function (req, res, next) {
 
   // Website you wish to allow to connect

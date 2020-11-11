@@ -10,7 +10,7 @@ const httpOptions = {
   })
 };
 
-const address2 = 'http://localhost:3000/'; //direccion donde estara el backend
+const address2 = 'http://backend-srv:3000/'; //direccion donde estara el backend
 
 @Injectable({
   providedIn: 'root'
