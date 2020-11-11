@@ -1,6 +1,6 @@
 {
     "/api/*":{
-        "target":"http://backend-srv",
+        "target":"http://backend-srv:3000",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
